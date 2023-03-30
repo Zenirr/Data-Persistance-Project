@@ -40,6 +40,7 @@ public class MainMenuUIHandler : MonoBehaviour
         Data.instance.SavePlayerRecord();
     }
 
+
     public void LoadUser()
     {
         Data.instance.LoadPlayerRecord();
