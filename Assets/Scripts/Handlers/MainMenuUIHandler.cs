@@ -16,7 +16,8 @@ public class MainMenuUIHandler : MonoBehaviour
     private void Awake()
     {
         nickname.text = "Your Name";
-        highscore.text = 0.ToString();
+        Data.instance.LoadHighscore();
+        highscore.text = $"Best Score: {Data.instance.highscoreNick} : {Data.instance.userHighscore}";
     }
 
     public void StartNew()
@@ -36,15 +37,11 @@ public class MainMenuUIHandler : MonoBehaviour
     public void SaveUser()
     {
         Data.instance.nickname = nickname.text.Trim();
-        Data.instance.userHighscore = int.Parse(highscore.text);
-        Data.instance.SavePlayerRecord();
     }
-
 
     public void LoadUser()
     {
         Data.instance.LoadPlayerRecord();
         nickname.text = Data.instance.nickname;
-        highscore.text = Data.instance.userHighscore.ToString();
     }
 }

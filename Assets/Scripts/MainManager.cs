@@ -24,7 +24,7 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BestScoreText.text = $"Best Score: {Data.instance.nickname} : {Data.instance.bestScore}";
+        BestScoreText.text = $"Best Score: {Data.instance.highscoreNick} : {Data.instance.userHighscore}";
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
 
@@ -60,6 +60,11 @@ public class MainManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                if (Data.instance.userHighscore < m_Points)
+                {
+                    Data.instance.userHighscore = m_Points;
+                    Data.instance.highscoreNick = Data.instance.nickname;
+                }
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -86,9 +91,10 @@ public class MainManager : MonoBehaviour
     private void DataSaving()
     {
         if (Data.instance.userHighscore < m_Points)
+        {
+            Data.instance.highscoreNick = Data.instance.nickname;
             Data.instance.userHighscore = m_Points;
-        if (Data.instance.bestScore < m_Points)
-            Data.instance.bestScore = m_Points;
+        }
 
         Data.instance.SavePlayerRecord();
     }
